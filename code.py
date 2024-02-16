@@ -69,5 +69,12 @@ from sklearn.tree import DecisionTreeClassifier
 dt_model = DecisionTreeClassifier(random_state=2)
 dt_model.fit(X_train, Y_train)
 dt_pred = dt_model.predict(X_test)
-decisiontree_accuracy = accuracy_score(Y_test, dt_pred)
-print("Decision Tree Accuracy:", decisiontree_accuracy)
+dt_accuracy = accuracy_score(Y_test, dt_pred)
+print("Decision Tree Accuracy:", dt_accuracy)
+//RandomForest
+from sklearn.ensemble import RandomForestClassifier
+rf_model = RandomForestClassifier(random_state=2)
+rf_model.fit(X_train, Y_train)
+rf_pred = rf_model.predict(X_test)
+rf_accuracy = accuracy_score(Y_test, rf_pred)
+print("RandomForest Accuracy:", rf_accuracy)
