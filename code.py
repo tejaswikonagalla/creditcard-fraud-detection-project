@@ -55,3 +55,12 @@ plt.title('Distribution of Transaction Amount by Class')
 plt.xlabel('Class (0: Legitimate, 1: Fraudulent)')
 plt.ylabel('Transaction Amount')
 plt.show()
+//splitting the data into testing and training data
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, stratify=Y, random_state=2)
+print(X.shape, X_train.shape, X_test.shape)
+//Logistic Regression
+logistic_model = LogisticRegression()
+logistic_model.fit(X_train, Y_train)
+logistic_pred = logistic_model.predict(X_test)
+logistic_accuracy = accuracy_score(Y_test, logistic_pred)
+print("Logistic Regression Accuracy:", logistic_accuracy)
