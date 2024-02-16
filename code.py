@@ -58,23 +58,35 @@ plt.show()
 //splitting the data into testing and training data
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, stratify=Y, random_state=2)
 print(X.shape, X_train.shape, X_test.shape)
-//Logistic Regression
-logistic_model = LogisticRegression()
-logistic_model.fit(X_train, Y_train)
-logistic_pred = logistic_model.predict(X_test)
-logistic_accuracy = accuracy_score(Y_test, logistic_pred)
-print("Logistic Regression Accuracy:", logistic_accuracy)
-//Decision Tree
+//Building Models
 from sklearn.tree import DecisionTreeClassifier
-dt_model = DecisionTreeClassifier(random_state=2)
-dt_model.fit(X_train, Y_train)
-dt_pred = dt_model.predict(X_test)
-dt_accuracy = accuracy_score(Y_test, dt_pred)
-print("Decision Tree Accuracy:", dt_accuracy)
-//RandomForest
 from sklearn.ensemble import RandomForestClassifier
-rf_model = RandomForestClassifier(random_state=2)
-rf_model.fit(X_train, Y_train)
-rf_pred = rf_model.predict(X_test)
-rf_accuracy = accuracy_score(Y_test, rf_pred)
-print("RandomForest Accuracy:", rf_accuracy)
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+models = {
+    'Logistic Regression': LogisticRegression(max_iter=1000),
+    'Decision Tree': DecisionTreeClassifier(),
+    'Random Forest': RandomForestClassifier(),
+}
+best_accuracy = 0
+best_model = None
+best_model_name = None
+results = {}
+for model_name, model in models.items():
+    model.fit(X_train, Y_train)
+    y_pred = model.predict(X_test)
+    accuracy = accuracy_score(Y_test, y_pred)
+    precision = precision_score(Y_test, y_pred)
+    recall = recall_score(Y_test, y_pred)
+    f1 = f1_score(Y_test, y_pred)
+    results[model_name] = {'Accuracy': accuracy, 'Precision': precision, 'Recall': recall, 'F1-score': f1}
+    if accuracy>best_accuracy:
+      best_accuracy = accuracy
+      best_model_name = model_name
+      best_model = model
+results_df = pd.DataFrame(results).T
+print(results_df)
+y_pred_test = best_model.predict(X_test)
+test_accuracy = accuracy_score(Y_test, y_pred_test)
+print(f"Test accuracy for the best model({best_model_name}): {test_accuracy*100}")
