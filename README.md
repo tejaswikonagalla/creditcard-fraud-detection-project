@@ -37,7 +37,6 @@ The goal is to create a model that can accurately identify fraudulent transactio
   Logistic Regression <br />
   Decision tree <br />
   Random forest <br />
-  SVM
   
   ## Conclusion
   Random Forest is the most accurate model for credit card fraud detection.
