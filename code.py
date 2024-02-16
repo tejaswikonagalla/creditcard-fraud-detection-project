@@ -64,3 +64,10 @@ logistic_model.fit(X_train, Y_train)
 logistic_pred = logistic_model.predict(X_test)
 logistic_accuracy = accuracy_score(Y_test, logistic_pred)
 print("Logistic Regression Accuracy:", logistic_accuracy)
+//Decision Tree
+from sklearn.tree import DecisionTreeClassifier
+dt_model = DecisionTreeClassifier(random_state=2)
+dt_model.fit(X_train, Y_train)
+dt_pred = dt_model.predict(X_test)
+decisiontree_accuracy = accuracy_score(Y_test, dt_pred)
+print("Decision Tree Accuracy:", decisiontree_accuracy)
